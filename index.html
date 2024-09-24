@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="Compositional NeRF framework for mutli-object texts to 3D content creation.">
+  <meta name="keywords" content="Componerf, text-to-3D, Multi-object texts, Diffusion models">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <title>CompoNeRF: Text-guided Multi-object Compositional NeRF with Editable 3D Scene Layout</title>
+  <!-- model viewer -->
+  <!-- <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script> -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/video_comparison.js"></script>
+  <!-- model viewer -->
+  <!-- <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script> -->
+</head>
+
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="https://hbai98.github.io/">
+          <span class="icon">
+            <i class="fas fa-home"></i>
+          </span>
+        </a>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            More Research
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://vlislab22.github.io/DOT">
+              DOT
+            </a>
+            <a class="navbar-item" href="https://vlis2022.github.io/fmap/">
+              Hi-Map
+            </a>
+            <a class="navbar-item" href="https://vlislab22.github.io/Hi-NeuS">
+              Hi-NeuS
+            </a>
+            <a class="navbar-item" href="https://vlis2022.github.io/cvpr23/PMTrans.html">
+              PatchMix
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">CompoNeRF: Text-guided Multi-object Compositional NeRF with Editable
+                3D Scene Layout</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://hbai98.github.io/">Haotian Bai</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <span class="author-block">
+                  <a href="https://qc-ly.github.io">Yuanhuiyi Lyu</a><sup>1</sup>,</span>
+                <span class="author-block">
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=uTYYRS8AAAAJ&hl=zh-CN">Lutao Jiang</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                Sijia Li<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Haonan Lu<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Xiaodong Lin<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://vlislab22.github.io/vlislab/linwang.html">Lin Wang</a><sup>1,3</sup>
+              </span>
+            </div>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>Hongkong University of Science and Technology(Guangzhou),</span>
+              <span class="author-block"><sup>2</sup>OPPO, </span>
+              <span class="author-block"><sup>3</sup>Hongkong University of Science and Technology</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <!-- <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+                <span class="link-block">
+                  <a href="./static/videos/componerf.pdf" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2303.13843" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Video Link. -->
+                <span class="link-block">
+                  <a href="https://youtu.be/hrkM5N7AltY" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/hbai98/Hi_NeuS/tree/main"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <!-- Dataset Link. -->
+                <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a> -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <video id="teaser" autoplay muted loop playsinline height="100%">
+          <source src="./static/videos/teaser.mp4" type="video/mp4">
+        </video>
+        <h2 class="subtitle has-text-centered">
+          <span class="dnerf">Componerf</span> parses and regenerate consistent multi-object environments through text prompts and layouts. It allows for individual NeRFs, each denoted by a unique prompt color, to be composed,
+          decomposed, and recomposed with ease. <b>(a)</b> displays the composed results. <b>(b), (c), (d), (e)</b> are recomposition results after manipulation demos shown above, including duplication, transformation, loading decomposed NeRFs, and semantic editing conducted separately.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <div class="content has-text-centered"></div>
+          <h2 class="title is-3">Motivation</h2>
+          <video id="motivation" autoplay muted loop playsinline height="100%">
+            <source src="./static/videos/motivation.mp4" type="video/mp4">
+          </video>
+        </div>
+        <h2 class="subtitle has-text-centered">
+          <b>The guidance collapse issue.</b>
+         Generation of the multi-object scene involves utilizing the frozen Stable Diffusion.  Instances of guidance collapse are observed when using the global text directly.
+        </h2>
+      </div>
+    </div>
+  </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">Comparison</h2>
+      <h2 class="title is-4">Composition</h2>
+
+      <div class="hero-body">
+        <video id="teaser" autoplay muted loop playsinline height="100%">
+          <source src="./static/videos/example.mp4" type="video/mp4">
+        </video>
+      </div>
+      <h2 class="title is-4">Recomposition</h2>
+      <div class="hero-body"></div>
+        <video id="teaser" autoplay muted loop playsinline height="100%">
+          <source src="./static/videos/recomp.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+          <!--/ Abstract. -->
+          <div class="container is-max-desktop">
+            <div class="hero-body">
+              <div class="content has-text-centered">
+                <h2 class="title is-3">Method</h2>
+                <video id="teaser" autoplay muted loop playsinline height="100%">
+                  <source src="./static/videos/solution.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="content has-text-justified">
+                <h4>(a) The Composition module. </h2>
+                  <p>The composition module composites multiple
+                    NeRFs for coherent scenes. 
+                    It begins by identifying individual objects from
+                    the textual description and positioning them within customizable
+                    3D bounding boxes. Each box is supported by a distinct NeRF and
+                    a subtext label. 
+                    During rendering, it recieves guidance from both the sub-text and the global text prompts. 
+                    This dual-text guidance ensures that each object is not only individually delineated but also integrated into the composite scene.
+                    After composition, its enhanced effect is accentuated by
+                    the red boxes, showcasing superior scene coherency.</p>
+
+
+                  <h4>(b) The compositional NeRFs. </h2>
+                    <p>CompoNeRF supports cashing and loading to facilitate
+                      NeRF composition. It <b>composes</b> multi-object scenes from textual prompts, <b>decomposes</b> by archiving each NeRF for subsequent utilization, 
+                      and <b>recomposes</b> by employing this curated content gallery to rapidly generate elaborate 3D scenes, thereby streamlining the 3D content creation workflow. </p>
+              </div>
+          </div>
+        </div>
+
+
+  </section>
+
+
+  </section>
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@misc{bai2024componerftextguidedmultiobjectcompositional,
+        title={CompoNeRF: Text-guided Multi-object Compositional NeRF with Editable 3D Scene Layout}, 
+        author={Haotian Bai and Yuanhuiyi Lyu and Lutao Jiang and Sijia Li and Haonan Lu and Xiaodong Lin and Lin Wang},
+        year={2024},
+        eprint={2303.13843},
+        archivePrefix={arXiv},
+        primaryClass={cs.CV},
+        url={https://arxiv.org/abs/2303.13843}, 
+  }
+</code></pre>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="./static/videos/componerf.pdf">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="https://github.com/hbai98" class="external-link" disabled>
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+            <p>
+              This means you are free to borrow the <a href="https://vlis2022.github.io/hi-neus">source code</a> of this
+              website,
+              we just ask that you link back to this page in the footer.
+              Please remember to remove the analytics code included in the header of the website which
+              you do not want on your website.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
