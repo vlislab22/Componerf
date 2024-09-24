@@ -153,7 +153,7 @@
                 </span>
                 <!-- Video Link. -->
                 <span class="link-block">
-                  <a href="https://youtu.be/hrkM5N7AltY" class="external-link button is-normal is-rounded is-dark">
+                  <a href="https://www.youtube.com/watch?v=eufdSsa-P9U" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fab fa-youtube"></i>
                     </span>
@@ -238,38 +238,18 @@
       </div>
     </div>
 
-          <!--/ Abstract. -->
-          <div class="container is-max-desktop">
-            <div class="hero-body">
-              <div class="content has-text-centered">
-                <h2 class="title is-3">Method</h2>
-                <video id="teaser" autoplay muted loop playsinline height="100%">
-                  <source src="./static/videos/solution.mp4" type="video/mp4">
-                </video>
+            <!--/ Interpolating. -->
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-four-fifths">
+                <h2 class="title is-3">Video</h2>
+                <div class="publication-video">
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/eufdSsa-P9U" title=""
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen></iframe>
+                </div>
               </div>
-              <div class="content has-text-justified">
-                <h4>(a) The Composition module. </h2>
-                  <p>The composition module composites multiple
-                    NeRFs for coherent scenes. 
-                    It begins by identifying individual objects from
-                    the textual description and positioning them within customizable
-                    3D bounding boxes. Each box is supported by a distinct NeRF and
-                    a subtext label. 
-                    During rendering, it recieves guidance from both the sub-text and the global text prompts. 
-                    This dual-text guidance ensures that each object is not only individually delineated but also integrated into the composite scene.
-                    After composition, its enhanced effect is accentuated by
-                    the red boxes, showcasing superior scene coherency.</p>
-
-
-                  <h4>(b) The compositional NeRFs. </h2>
-                    <p>CompoNeRF supports cashing and loading to facilitate
-                      NeRF composition. It <b>composes</b> multi-object scenes from textual prompts, <b>decomposes</b> by archiving each NeRF for subsequent utilization, 
-                      and <b>recomposes</b> by employing this curated content gallery to rapidly generate elaborate 3D scenes, thereby streamlining the 3D content creation workflow. </p>
-              </div>
-          </div>
-        </div>
-
-
+            </div>
   </section>
 
 
